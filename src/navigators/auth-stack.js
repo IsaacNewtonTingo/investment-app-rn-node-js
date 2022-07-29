@@ -6,6 +6,7 @@ import Login from '../screens/login';
 import EmailVerification from '../screens/email-verification';
 import ResetPassword from '../screens/reset-password';
 import NewPassword from '../screens/new-password';
+import RegPayment from '../screens/reg-payment';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,14 @@ export default function AuthStack() {
         component={NewPassword}
         options={{
           headerTitle: 'New passwrod',
+        }}
+      />
+
+      <Stack.Screen
+        name="RegPayment"
+        component={RegPayment}
+        options={{
+          headerTitle: 'Registration fee',
         }}
       />
     </Stack.Navigator>

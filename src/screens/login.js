@@ -18,6 +18,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Button, LoadingButton} from '../components/button';
 
 import axios from 'axios';
+import {ShortLine} from '../components/shortLine';
 
 const A = props => <Text style={styles.textLink}>{props.children}</Text>;
 
@@ -54,6 +55,7 @@ export default function Login({navigation}) {
             console.log(response.data.data[0]._id);
             Alert.alert(response.data.message);
             setIsPosting(false);
+            navigation.navigate('RegPayment');
           } else {
             Alert.alert(response.data.message);
             setIsPosting(false);
@@ -131,6 +133,8 @@ export default function Login({navigation}) {
         </Text>
       </TouchableOpacity>
 
+      <ShortLine />
+
       <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
         <Text
           style={[
@@ -139,6 +143,7 @@ export default function Login({navigation}) {
               textAlign: 'center',
               marginBottom: 100,
               fontSize: 16,
+              marginTop: 20,
             },
           ]}>
           Forgot password? <A>Reset</A>

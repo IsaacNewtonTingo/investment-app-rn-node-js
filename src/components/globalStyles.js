@@ -48,13 +48,24 @@ const styles = StyleSheet.create({
   shortLine: {
     borderWidth: 1,
     borderColor: colors.lighgray,
-    marginVertical: 20,
-    width: '20%',
+    width: '10%',
+    alignSelf: 'center',
+  },
+  longLine: {
+    borderWidth: 1,
+    borderColor: colors.lighgray,
+    width: '100%',
     alignSelf: 'center',
   },
   textContainer: {
     alignItems: 'center',
     marginTop: 10,
+  },
+  subHeading: {
+    fontFamily: 'SourceSansPro-Regular',
+    color: colors.lightPurple,
+    fontSize: 18,
+    fontWeight: '800',
   },
 });
 
