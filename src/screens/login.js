@@ -27,6 +27,11 @@ export default function Login({navigation}) {
 
   const [isPosting, setIsPosting] = useState(false);
 
+  const empty = () => {
+    setEmail('');
+    setPassword('');
+  };
+
   async function login() {
     if (!email || !password) {
       Alert.alert('All fields are required');
@@ -34,17 +39,20 @@ export default function Login({navigation}) {
     } else {
       setIsPosting(true);
       await axios
-        .post('https://049c-105-163-1-68.in.ngrok.io/user/signin', {
+        .post('https://ebce-105-163-1-68.eu.ngrok.io/user/signin', {
           email: email,
           password: password,
         })
         .catch(err => {
           console.log(err);
           setIsPosting(false);
+          empty();
         })
         .then(response => {
+          empty();
           if (response.data.status == 'Success') {
             console.log(response.data.data[0]._id);
+            Alert.alert(response.data.message);
             setIsPosting(false);
           } else {
             Alert.alert(response.data.message);
@@ -115,11 +123,25 @@ export default function Login({navigation}) {
             {
               marginTop: 20,
               textAlign: 'center',
-              marginBottom: 100,
+              marginBottom: 20,
               fontSize: 16,
             },
           ]}>
           Don't have an account? <A>Signup</A>
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
+        <Text
+          style={[
+            styles.text,
+            {
+              textAlign: 'center',
+              marginBottom: 100,
+              fontSize: 16,
+            },
+          ]}>
+          Forgot password? <A>Reset</A>
         </Text>
       </TouchableOpacity>
     </ScrollView>

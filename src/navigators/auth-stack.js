@@ -4,6 +4,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUp from '../screens/signup';
 import Login from '../screens/login';
 import EmailVerification from '../screens/email-verification';
+import ResetPassword from '../screens/reset-password';
+import NewPassword from '../screens/new-password';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +30,22 @@ export default function AuthStack() {
         component={EmailVerification}
         options={{
           headerTitle: 'Email verification',
+        }}
+      />
+
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{
+          headerTitle: 'Reset passwrod',
+        }}
+      />
+
+      <Stack.Screen
+        name="NewPassword"
+        component={NewPassword}
+        options={{
+          headerTitle: 'New passwrod',
         }}
       />
     </Stack.Navigator>

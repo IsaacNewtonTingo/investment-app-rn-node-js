@@ -29,6 +29,15 @@ export default function SignUp({navigation}) {
   const [isPosting, setIsPosting] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
+  const empty = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPhoneNUmber('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+
   async function signup() {
     if (
       !firstName ||
@@ -66,6 +75,7 @@ export default function SignUp({navigation}) {
         .then(response => {
           setButtonDisabled(false);
           console.log(response.data);
+          empty();
           if (response.data.status == 'Pending') {
             setIsPosting(false);
             setButtonDisabled(false);
@@ -76,12 +86,14 @@ export default function SignUp({navigation}) {
           }
         })
         .catch(err => {
+          empty();
           setButtonDisabled(false);
           setIsPosting(false);
           console.log(err);
         });
     }
   }
+
   return (
     <ScrollView
       keyboardShouldPersistTaps="always"
