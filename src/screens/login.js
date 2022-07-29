@@ -14,7 +14,9 @@ import styles from '../components/globalStyles';
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Button from '../components/button';
+
+import {Button, LoadingButton} from '../components/button';
+
 import axios from 'axios';
 
 const A = props => <Text style={styles.textLink}>{props.children}</Text>;
@@ -41,9 +43,14 @@ export default function Login({navigation}) {
           setIsPosting(false);
         })
         .then(response => {
-          console.log(response.data.data[0]._id);
+          if (response.data.status == 'Success') {
+            console.log(response.data.data[0]._id);
+            setIsPosting(false);
+          } else {
+            Alert.alert(response.data.message);
+            setIsPosting(false);
+          }
           setIsPosting(false);
-          Alert.alert(response.data.message);
         });
     }
   }
@@ -95,7 +102,11 @@ export default function Login({navigation}) {
         />
       </View>
 
-      <Button onPress={login} title="Login" />
+      {isPosting == true ? (
+        <LoadingButton />
+      ) : (
+        <Button onPress={login} title="Login" />
+      )}
 
       <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
         <Text

@@ -15,13 +15,21 @@ import {
   WaveIndicator,
 } from 'react-native-indicators';
 
-export default function Button(props) {
+export function Button(props) {
   return (
     <TouchableOpacity
       disabled={props.disabled}
       style={styles.button}
       onPress={props.onPress}>
       <Text style={styles.buttonText}>{props.title}</Text>
+    </TouchableOpacity>
+  );
+}
+
+export function LoadingButton(props) {
+  return (
+    <TouchableOpacity disabled={true} style={styles.button}>
+      <BarIndicator size={20} color="white" />
     </TouchableOpacity>
   );
 }

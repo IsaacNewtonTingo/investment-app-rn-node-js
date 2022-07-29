@@ -13,20 +13,8 @@ import styles from '../components/globalStyles';
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Button from '../components/button';
+import {Button, LoadingButton} from '../components/button';
 import axios from 'axios';
-
-import {
-  BallIndicator,
-  BarIndicator,
-  DotIndicator,
-  MaterialIndicator,
-  PacmanIndicator,
-  PulseIndicator,
-  SkypeIndicator,
-  UIActivityIndicator,
-  WaveIndicator,
-} from 'react-native-indicators';
 
 const A = props => <Text style={styles.textLink}>{props.children}</Text>;
 
@@ -206,7 +194,11 @@ export default function SignUp({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <Button disabled={buttonDisabled} onPress={signup} title="Signup" />
+      {isPosting == true ? (
+        <LoadingButton />
+      ) : (
+        <Button disabled={buttonDisabled} onPress={signup} title="Signup" />
+      )}
 
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text
