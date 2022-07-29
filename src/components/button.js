@@ -3,9 +3,24 @@ import {TouchableOpacity, Text} from 'react-native';
 
 import styles from './globalStyles';
 
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from 'react-native-indicators';
+
 export default function Button(props) {
   return (
-    <TouchableOpacity style={styles.button} onPress={props.onPress}>
+    <TouchableOpacity
+      disabled={props.disabled}
+      style={styles.button}
+      onPress={props.onPress}>
       <Text style={styles.buttonText}>{props.title}</Text>
     </TouchableOpacity>
   );

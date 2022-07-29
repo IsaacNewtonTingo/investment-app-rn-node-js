@@ -52,6 +52,10 @@ const styles = StyleSheet.create({
     width: '20%',
     alignSelf: 'center',
   },
+  textContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
 });
 
 export default styles;

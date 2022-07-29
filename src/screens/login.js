@@ -6,6 +6,7 @@ import {
   Image,
   View,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 
@@ -14,6 +15,7 @@ import styles from '../components/globalStyles';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Button from '../components/button';
+import axios from 'axios';
 
 const A = props => <Text style={styles.textLink}>{props.children}</Text>;
 
@@ -21,8 +23,36 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isPosting, setIsPosting] = useState(false);
+
+  async function login() {
+    if (!email || !password) {
+      Alert.alert('All fields are required');
+      setIsPosting(false);
+    } else {
+      setIsPosting(true);
+      await axios
+        .post('https://049c-105-163-1-68.in.ngrok.io/user/signin', {
+          email: email,
+          password: password,
+        })
+        .catch(err => {
+          console.log(err);
+          setIsPosting(false);
+        })
+        .then(response => {
+          console.log(response.data.data[0]._id);
+          setIsPosting(false);
+          Alert.alert(response.data.message);
+        });
+    }
+  }
+
   return (
-    <ScrollView bounces={true} style={styles.container}>
+    <ScrollView
+      keyboardShouldPersistTaps="always"
+      bounces={true}
+      style={styles.container}>
       <Image
         style={{
           width: 300,
@@ -65,7 +95,7 @@ export default function Login({navigation}) {
         />
       </View>
 
-      <Button title="Login" />
+      <Button onPress={login} title="Login" />
 
       <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
         <Text
