@@ -1,19 +1,12 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  View,
-} from 'react-native';
+import {Text, Image, View} from 'react-native';
 import React from 'react';
 import styles from '../components/globalStyles';
-import Button from '../components/button';
+import {Button} from '../components/button';
 import {ShortLine} from '../components/shortLine';
 
-const A = props => <Text style={[styles.textLink, {}]}>{props.children}</Text>;
+const A = props => <Text style={styles.textLink}>{props.children}</Text>;
 
-export default function EmailVerification({navigation}) {
+export default function EmailVerificationScreen({navigation}) {
   return (
     <View style={styles.container}>
       <Image

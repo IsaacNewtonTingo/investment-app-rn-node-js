@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import AuthStack from './src/navigators/auth-stack';

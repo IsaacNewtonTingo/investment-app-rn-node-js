@@ -3,10 +3,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import SignUp from '../screens/signup';
 import Login from '../screens/login';
-import EmailVerification from '../screens/email-verification';
 import ResetPassword from '../screens/reset-password';
 import NewPassword from '../screens/new-password';
 import RegPayment from '../screens/reg-payment';
+import EmailVerificationScreen from '../screens/email-verification';
+import TabNavigator from './tab-navigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,8 +28,8 @@ export default function AuthStack() {
       <Stack.Screen name="Login" component={Login} options={{}} />
 
       <Stack.Screen
-        name="EmailVerification"
-        component={EmailVerification}
+        name="EmailVerificationScreen"
+        component={EmailVerificationScreen}
         options={{
           headerTitle: 'Email verification',
         }}
@@ -55,6 +56,15 @@ export default function AuthStack() {
         component={RegPayment}
         options={{
           headerTitle: 'Registration fee',
+        }}
+      />
+
+      <Stack.Screen
+        name="TabNavigator"
+        component={TabNavigator}
+        options={{
+          headerTitle: 'Registration fee',
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

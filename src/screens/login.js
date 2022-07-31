@@ -40,7 +40,7 @@ export default function Login({navigation}) {
     } else {
       setIsPosting(true);
       await axios
-        .post('https://ebce-105-163-1-68.eu.ngrok.io/user/signin', {
+        .post('https://investment-app-backend.herokuapp.com/user/signin', {
           email: email,
           password: password,
         })
@@ -52,10 +52,19 @@ export default function Login({navigation}) {
         .then(response => {
           empty();
           if (response.data.status == 'Success') {
-            console.log(response.data.data[0]._id);
             Alert.alert(response.data.message);
             setIsPosting(false);
-            navigation.navigate('RegPayment');
+            navigation.navigate('TabNavigator', {
+              userID: response.data.data[0]._id,
+              phoneNumber: response.data.data[0].phoneNumber,
+            });
+          } else if (response.data.status == 'Pending') {
+            Alert.alert(response.data.message);
+            setIsPosting(false);
+            navigation.navigate('RegPayment', {
+              userID: response.data.data[0]._id,
+              phoneNumber: response.data.data[0].phoneNumber,
+            });
           } else {
             Alert.alert(response.data.message);
             setIsPosting(false);
@@ -132,8 +141,6 @@ export default function Login({navigation}) {
           Don't have an account? <A>Signup</A>
         </Text>
       </TouchableOpacity>
-
-      <ShortLine />
 
       <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
         <Text

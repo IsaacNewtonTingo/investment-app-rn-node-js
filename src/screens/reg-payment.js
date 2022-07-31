@@ -1,24 +1,51 @@
-import {ScrollView, TextInput, Image, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import {ScrollView, TextInput, Image, Text, View, Alert} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import styles from '../components/globalStyles';
 
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 
 import {Button, LoadingButton} from '../components/button';
-import {LongLine, ShortLine} from '../components/shortLine';
+import axios from 'axios';
 
-const A = props => <Text style={[styles.textLink, {}]}>{props.children}</Text>;
+const A = props => <Text style={[styles.textLink]}>{props.children}</Text>;
 
-export default function RegPayment() {
-  const [phoneNumber, setPhoneNumber] = useState('');
+export default function RegPayment({route, navigation}) {
+  const [phoneNumber, setPhoneNumber] = useState(route.params.phoneNumber);
   const [referralCode, setReferralCode] = useState('');
 
   const [isPosting, setIsPosting] = useState(false);
 
-  async function pay() {}
+  const userID = route.params.userID;
+
+  async function pay() {
+    if (!phoneNumber || !userID) {
+      Alert.alert('Please input phone number');
+    } else {
+      setIsPosting(true);
+      await axios
+        .post(
+          'https://investment-app-backend.herokuapp.com/payments/reg-fee-payment',
+          {
+            phoneNumberUsed: phoneNumber,
+            userID: userID,
+            referralCode: referralCode,
+          },
+        )
+        .then(response => {
+          setIsPosting(false);
+          console.log(response.data);
+
+          Alert.alert(response.data.message);
+        })
+        .catch(err => {
+          setIsPosting(false);
+          console.log(err);
+        });
+    }
+  }
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView keyboardShouldPersistTaps="always" style={styles.container}>
       <Image
         source={require('../assets/images/regPayment.png')}
         style={[styles.leadIMG, {width: 180, height: 200, marginBottom: 20}]}
@@ -28,8 +55,9 @@ export default function RegPayment() {
 
       <Text style={[styles.text, {marginTop: 20, marginBottom: 40}]}>
         You are required to pay a registration fee of <A>KSH. 200</A> as stated
-        in our Terms and conditions.{'\n'}If you have a referral code, you can
-        use it to get <A>20% discount </A>on your registration fee.
+        in our <A>Terms and conditions</A>.{'\n'}
+        {'\n'}If you have a referral code, you can use it to get{' '}
+        <A>20% discount </A>on your registration fee.
       </Text>
 
       <View style={styles.textInputContainer}>
@@ -41,10 +69,11 @@ export default function RegPayment() {
         />
         <TextInput
           style={styles.textInput}
-          value={phoneNumber}
+          value={phoneNumber.toString()}
           onChangeText={setPhoneNumber}
           placeholder="Phone number (e.g 0765667876)"
           keyboardType="phone-pad"
+          editable={false}
         />
       </View>
 

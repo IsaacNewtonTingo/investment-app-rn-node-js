@@ -65,11 +65,11 @@ export default function SignUp({navigation}) {
       setIsPosting(true);
       setButtonDisabled(true);
       await axios
-        .post('https://716b-41-80-96-26.in.ngrok.io/user/signup', {
+        .post('https://investment-app-backend.herokuapp.com/user/signup', {
           firstName: firstName,
           lastName: lastName,
           email: email,
-          phoneNumber: phoneNumber,
+          phoneNumber: phoneNumber.replace(0, 254),
           password: password,
         })
         .then(response => {
@@ -79,10 +79,11 @@ export default function SignUp({navigation}) {
           if (response.data.status == 'Pending') {
             setIsPosting(false);
             setButtonDisabled(false);
-            navigation.navigate('EmailVerification');
+            navigation.navigate('EmailVerificationScreen');
           } else {
             Alert.alert(response.data.message);
             setButtonDisabled(false);
+            setIsPosting(false);
           }
         })
         .catch(err => {

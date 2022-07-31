@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.lighgray,
     marginBottom: 10,
     paddingHorizontal: 40,
+    color: 'black',
   },
   textInputIcon: {
     position: 'absolute',
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     borderColor: colors.lighgray,
     width: '10%',
     alignSelf: 'center',
+    marginVertical: 40,
   },
   longLine: {
     borderWidth: 1,
